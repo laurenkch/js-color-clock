@@ -121,11 +121,50 @@ let convertToColor = function () {
     return hexNum;
 };
 
+document.body.style.backgroundColor = convertToColor();
+
 function changeBackground() {
      document.body.style.backgroundColor = convertToColor();
 };
 
 setInterval(changeBackground, 1000);
 
+//Displaying the color's hex value on hover
+
+function displayColor () {
+    timeText.textContent = convertToColor();
+};
+
+timeText.addEventListener("mouseover", displayColor);
+
+
+// this techncially displays a code on hover, but I wanted it to also stay on that and update with the time. The end comments are stuff from tyring that. 
+
+//I understand that the time keeps changing back to the time because of the interval but can't figure out how to set a new interval inside of an event listener. 
+
+
+// timeText.addEventListener("mouseover",
+// e => setInterval(displayColor, 1000));
+
+// timeText.addEventListener('mouseleave', e=>
+// setInterval(displayTime,1000)
+// );
+
+// timeText.textContent = convertToColor();
+
+// setTimeout(displayColor(), 50000);
+
+// timeText.addEventListener("mouseover", function() {
+//     timeText.textContent = convertToColor(); 1000;
+// });
+  
+// timeText.addEventListener('mouseleave', function() {
+//         timeText.textContent = currentTime();
+// });
+
+        // leaveEventCount++;    
+    // reset the color after a short delay
+//     setTimeout(1000);
+//   }, false);
 
 })();
