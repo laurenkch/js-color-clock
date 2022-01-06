@@ -109,10 +109,23 @@
 
 // Updating the background based on the color
 
+let convertToColor = function () {
+    let date = new Date();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    hours = padding(hours);
+    minutes = padding(minutes);
+    seconds = padding(seconds);
+    let hexNum = `#${hours}${minutes}${seconds}`;
+    return hexNum;
+};
 
-// function logColor() {
-//     let color = `#{colorTime()}`;
-//     console.log(color);
-// };
+function changeBackground() {
+     document.body.style.backgroundColor = convertToColor();
+};
+
+setInterval(changeBackground, 1000);
+
 
 })();
