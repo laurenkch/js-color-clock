@@ -26,14 +26,32 @@
 
     //display current time immediately
 
+const timeText = document.querySelector(".clock-display");
+const progressBar = document.querySelector(".clock-progress-bar");
+const clockFace = document.querySelector(".clock-face");
+
+let index = 0
+let isHovering = false;
+
+timeText.addEventListener('mouseover', function (){
+    isHovering = true;
+});
+
+timeText.addEventListener('mouseout', function (){
+    isHovering = false;
+});
+
     let currentTime = function () {
         let date = new Date();
+
         let hours = date.getHours();
         let minutes = date.getMinutes();
         let seconds = date.getSeconds();
+
         hours = padding(hours);
         minutes = padding(minutes);
         seconds = padding(seconds);
+
         return hours + ":" + minutes + ":" + seconds;
     };
 
@@ -49,6 +67,10 @@
             return num;
         }
     };
+
+    //for padding, could have done:
+    // seconds = ('0' + date.getSeconds()).slice(-2)
+    //adds a zero to everything and then only returns the last 2 places. 
 
     //display current time every second
 
@@ -111,15 +133,15 @@
 
 let convertToColor = function () {
     let date = new Date();
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    let seconds = date.getSeconds();
-    hours = padding(hours);
-    minutes = padding(minutes);
-    seconds = padding(seconds);
-    let hexNum = `#${hours}${minutes}${seconds}`;
+    let hours = ("0" + date.getHours()).toString(16).slice(-2);
+    let minutes = ("0" + date.getMinutes());toString(16).slice(-2);    
+    let seconds = ("0" + date.getSeconds());toString(16).slice(-2);
+    let hexNum = `${hours}:${minutes}:${seconds}`;
     return hexNum;
+    console.log(hexNum);
 };
+
+// Hexseconds = ("0" + date.getSeconds()).toString(16).slice(-2);
 
 document.body.style.backgroundColor = convertToColor();
 
@@ -135,36 +157,71 @@ function displayColor () {
     timeText.textContent = convertToColor();
 };
 
-timeText.addEventListener("mouseover", displayColor);
+timeText.addEventListener("mouseover", convertToColor);
+
+    //for colors, could have used:
+    // Hexseconds = ("0" + date.getSeconds()).toString(16).slice(-2);
+    //to 16 = a hexadecimal number. 
 
 
-// this techncially displays a code on hover, but I wanted it to also stay on that and update with the time. The end comments are stuff from tyring that. 
 
-//I understand that the time keeps changing back to the time because of the interval but can't figure out how to set a new interval inside of an event listener. 
+function callColorCode () {
+    let convertToColor = function () {
+        let date = new Date();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let seconds = date.getSeconds();
+        hours = padding(hours);
+        minutes = padding(minutes);
+        seconds = padding(seconds);
+        let hexNum = `#${hours}${minutes}${seconds}`;
+        return hexNum;
+    };
+    
+    function changeBackground() {
+        document.body.style.backgroundColor = convertToColor();
+   };
+   
+   setInterval(changeBackground, 1000);
+
+};
 
 
-// timeText.addEventListener("mouseover",
-// e => setInterval(displayColor, 1000));
+const $clock = document.querySelector('.clock');
+const $display = document.querySelector('dis
 
-// timeText.addEventListener('mouseleave', e=>
-// setInterval(displayTime,1000)
-// );
+// how to make sure the time/color stays one way.
+let isHovering = false;
 
-// timeText.textContent = convertToColor();
+$clock.addEventListener('mouseover', function (){
+    isHovering = true;
+});
 
-// setTimeout(displayColor(), 50000);
+$clock.addEventListener('mouseout', function (){
+    isHovering = false;
+});
 
-// timeText.addEventListener("mouseover", function() {
-//     timeText.textContent = convertToColor(); 1000;
-// });
-  
-// timeText.addEventListener('mouseleave', function() {
-//         timeText.textContent = currentTime();
-// });
+if(isHovering) {
+    //show hex
+} else {
+    //show time
+}
 
-        // leaveEventCount++;    
-    // reset the color after a short delay
-//     setTimeout(1000);
-//   }, false);
+$diplay.textContent = `${hour}:${minutes}:${seconds}`;
+$progressBar.style.width = `${seconds/ 60 * 14}rem`;
 
-})();
+setInterval(setDate, 1000);
+
+//changing the colors:
+
+function setBackground() {
+    const colors = [`#DF5D69`, `3D00A5A`, `#8AC972`, `#D365E1`, `#4EACF5`, `#8A8700`];
+    $clock.style.background = `${colors[index]}`;
+    index === colors.length - 1 ? index = 0 : index++;
+}
+setInterval(setDate, 1000);
+setInterval(setBackground, 5000);
+
+
+const body = document.querySelector('body');
+body.style.background = 'red';
