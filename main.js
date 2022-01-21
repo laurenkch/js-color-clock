@@ -124,6 +124,7 @@
         clockFace.style.backgroundColor = convertToColor();
     
     };
+    changeBackground();
     setInterval(changeBackground, 1000);
 }
 )();
